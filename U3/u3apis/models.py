@@ -99,23 +99,7 @@ class TableCode(models.Model):
     def __str__(self):
         return self.table_code
     
-         
-class QRCode(models.Model):
-    qr_code         = models.CharField(max_length=20, primary_key=True)
-    res_code        = models.ForeignKey(ResDetails)
-    table_code      = models.ForeignKey(TableCode)
-    active          = models.BooleanField(default=False)
-    order_code      = models.IntegerField() #Foreign key to Order table
-    waiter          = models.BooleanField(default=False)
-    freeze_bill     = models.BooleanField(default=False)
-      
-    class Meta:
-        db_table = 's_t_qrcode'
-      
-    def __str__(self):
-        return self.qr_code
-         
- 
+        
 class Category(models.Model):
     res_code        = models.ForeignKey(ResDetails)
     name            = models.CharField(max_length=50)
@@ -163,7 +147,23 @@ class Order(models.Model):
     def __str__(self):
         self.order.id
  
- 
+
+class QRCode(models.Model):
+    qr_code         = models.CharField(max_length=20, primary_key=True)
+    res_code        = models.ForeignKey(ResDetails)
+    table_code      = models.ForeignKey(TableCode)
+    active          = models.BooleanField(default=False)
+    order_code      = models.ForeignKey(Order) #Foreign key to Order table
+    waiter          = models.BooleanField(default=False)
+    freeze_bill     = models.BooleanField(default=False)
+      
+    class Meta:
+        db_table = 's_t_qrcode'
+      
+    def __str__(self):
+        return self.qr_code
+    
+     
 class Table(models.Model):
     res_code        = models.ForeignKey(ResDetails)
     area_name       = models.CharField(max_length=25)
